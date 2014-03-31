@@ -33,8 +33,8 @@ int main()
 
 	// softmax train
 	double precision = 0;
-	double lr = 0.001;
-	double lamda = 0.001;
+	double lr = 0.0005;
+	double lamda = 0.0001;
 	int epochs = 100;
 	Softmax softmax( nRow, Num_out);
 	softmax.Train(train_X, train_Y, nCol, lr, lamda, epochs);
@@ -43,7 +43,7 @@ int main()
 	delete[] train_X;
 	delete[] train_Y;
 
-	nCol = 1000;  //测试数据的列数，即测试样本个数
+	nCol = 10000;  //测试数据的列数，即测试样本个数
 
 	double *test_X = new double[nRow*nCol];
 	int * test_Y = new int[nCol];

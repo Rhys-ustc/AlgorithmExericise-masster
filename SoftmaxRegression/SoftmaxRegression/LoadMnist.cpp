@@ -39,6 +39,14 @@ void LoadMnistData(string imgPath, string labelPath, double *m_data,int *m_label
 	fclose(finlabel);
 }
 
+/* LoadMnistFeatures()
+   load the MNIST features from  2 layer SdA 
+   
+*/
+void LoadMnistFeatures(string imgPath, string labelPath, double *m_data, int *m_label, int nRows, int nCols)
+{
+
+}
 /*
    归一化数据
 */
