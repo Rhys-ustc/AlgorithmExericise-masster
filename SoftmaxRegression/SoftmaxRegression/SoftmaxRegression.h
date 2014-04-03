@@ -12,8 +12,9 @@ class Softmax {
 public:
 	int n_in;
 	int n_out;
+	double p;
 
-	Softmax(int in, int out);
+	Softmax(int in, int out, double p);
 	~Softmax();
 private:
 	double **W;
@@ -24,6 +25,7 @@ public:
 	double Predict(double *test_X, int test_N, int *test_Y);
 private:
 	void softmax(double *x);
+	void dropout(double *x);
 
 };
 

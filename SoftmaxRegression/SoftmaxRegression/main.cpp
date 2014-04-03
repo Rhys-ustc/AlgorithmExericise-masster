@@ -33,10 +33,11 @@ int main()
 
 	// softmax train
 	double precision = 0;
-	double lr = 0.0005;
-	double lamda = 0.0001;
-	int epochs = 100;
-	Softmax softmax( nRow, Num_out);
+	double lr = 0.0001;
+	double lamda = 0.00001;
+	int epochs = 200;
+	double p_dropout = 0;
+	Softmax softmax( nRow, Num_out, p_dropout);
 	softmax.Train(train_X, train_Y, nCol, lr, lamda, epochs);
 
 	//load test data

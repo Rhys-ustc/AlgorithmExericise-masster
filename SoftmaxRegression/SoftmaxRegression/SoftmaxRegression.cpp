@@ -1,10 +1,13 @@
 #include"SoftmaxRegression.h"
 
 // Softmax
-Softmax::Softmax( int in, int out) 
+Softmax::Softmax( int in, int out, double p_dropout) 
 {
+	srand(time(NULL));
+
 	n_in = in;
 	n_out = out;
+	p = 1- p_dropout;
 	// initialize W[n_out][n_in], b[n_out] 
 	W = new double*[n_out];
 	for (int i = 0; i<n_out; i++) W[i] = new double[n_in];
@@ -52,6 +55,9 @@ void Softmax::Train(double *x, int *y, int N, double lr, double lamda, int epoch
 		    //ShowImg(tmp_x, 28, 28);
 			//cout << y[n] << endl;
 			
+			// dropout in input
+			dropout(tmp_x);
+
 			// compute softmax value
 			for (int i = 0; i<n_out; i++) 
 			{
@@ -114,6 +120,18 @@ void Softmax::softmax(double *x)
 
 }
 
+/* dropout()
+   dropout in input 
+
+*/
+void Softmax::dropout(double *x)
+{
+	for (int i = 0; i < n_in; i++)
+	{
+		if ((x[i] != 0) && (rand() / (RAND_MAX + 1.0) > p))
+			x[i] = 0;
+	}
+}
 // predict 
 double Softmax::Predict(double *x, int test_N, int *y) 
 {
@@ -133,7 +151,7 @@ double Softmax::Predict(double *x, int test_N, int *y)
 			{
 				tmp_y[i] += W[i][j] * x[n*n_in +j];
 			}
-			tmp_y[i] += b[i];
+			tmp_y[i] = p*tmp_y[i] + b[i];  // scaled with dropout level
 		}
 		// find the index which has the max probability 
 		tmp_max = tmp_y[0];
